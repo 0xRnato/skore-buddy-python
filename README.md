@@ -1,77 +1,24 @@
-# Flask-VueJs-Template 🌶️✌
+# Skore Buddy
 
-[![Build Status](https://travis-ci.org/gtalarico/flask-vuejs-template.svg?branch=master)](https://travis-ci.org/gtalarico/flask-vuejs-template)
-[![codecov](https://codecov.io/gh/gtalarico/flask-vuejs-template/branch/master/graph/badge.svg)](https://codecov.io/gh/gtalarico/flask-vuejs-template)
-
-_Flask + Vue.js Web Application Template_
-
-![Vue Logo](/docs/vue-logo.png "Vue Logo") ![Flask Logo](/docs/flask-logo.png "Flask Logo")
-
-## Features
-* Minimal Flask 1.0 App
-* [Flask-RestPlus](http://flask-restplus.readthedocs.io) API with class-based secure resource routing
-* Starter [PyTest](http://pytest.org) test suite
-* [vue-cli 3](https://github.com/vuejs/vue-cli/blob/dev/docs/README.md) + yarn
-* [Vuex](https://vuex.vuejs.org/)
-* [Vue Router](https://router.vuejs.org/)
-* [Axios](https://vuex.vuejs.org/) for backend communication
-* Sample Vue [Filters](https://vuejs.org/v2/guide/filters.html)
-* Heroku Configuration with one-click deployment + Gunicorn
+_Flask + Vue.js + DialogFlow Chatbot_
 
 ## Demo
-[Live Demo](https://flask-vuejs-template.herokuapp.com/#/api)
 
-## Alternatives
-
-If this setup is not what you are looking for, here are some similar projects:
-
-* [oleg-agapov/flask-vue-spa](https://github.com/oleg-agapov/flask-vue-spa)
-* [testdrivenio/flask-vue-crud](https://github.com/testdrivenio/flask-vue-crud)
-
-#### Old Template
-
-This template was updated to use a flatter folder structure and use yarn instead of npm.
-You can now run `yarn serve` as well as other yarn commands from the template root directory.
-The old template will be kept in the [npm-template branch](https://github.com/gtalarico/flask-vuejs-template/tree/npm-template) but will not be maintained.
-
-#### Django
-
-Prefer Django? Checkout the [gtalarico/django-vue-template](https://github.com/gtalarico/django-vue-template)
-
-## Template Structure
-
-The template uses Flask & Flask-RestPlus to create a minimal REST style API,
-and let's VueJs + vue-cli handle the front end and asset pipline.
-Data from the python server to the Vue application is passed by making Ajax requests.
-
-### Application Structure
-
-#### Rest Api
-
-The Api is served using a Flask blueprint at `/api/` using Flask RestPlus class-based
-resource routing.
-
-#### Client Application
-
-A Flask view is used to serve the `index.html` as an entry point into the Vue app at the endpoint `/`.
-
-The template uses vue-cli 3 and assumes Vue Cli & Webpack will manage front-end webhook and assets, so it does overwrite template delimiter.
-
-The Vue instance is preconfigured with Filters, Vue-Router, Vuex; each of these can easilly removed if they are not desired.
+[Live Demo](https://skore-buddy-python.herokuapp.com/)
 
 #### Important Files
 
-| Location             |  Content                                   |
-|----------------------|--------------------------------------------|
-| `/app`               | Flask Application                          |
-| `/app/api`           | Flask Rest Api (`/api`)                    |
-| `/app/client.py`     | Flask Client (`/`)                         |
-| `/src`               | Vue App .                                  |
-| `/src/main.js`       | JS Application Entry Point                 |
-| `/public/index.html` | Html Application Entry Point (`/`)         |
-| `/public/static`     | Static Assets                              |
+| Location             | Content                                          |
+| -------------------- | ------------------------------------------------ |
+| `/app`               | Flask Application                                |
+| `/app/webhook`       | Dialogflow webhook (`/api/webhook`)              |
+| `/app/process`       | Dialogflow detect intent API (`/api/process`)    |
+| `/app/client.py`     | Flask Client (`/`)                               |
+| `/src`               | Vue App .                                        |
+| `/src/main.js`       | JS Application Entry Point                       |
+| `/public/index.html` | Html Application Entry Point (`/`)               |
+| `/public/static`     | Static Assets                                    |
 | `/dist/`             | Bundled Assets Output (generated at `yarn build` |
-
 
 ## Installation
 
@@ -79,33 +26,32 @@ The Vue instance is preconfigured with Filters, Vue-Router, Vuex; each of these 
 
 Before getting started, you should have the following installed and running:
 
-- [X] Yarn - [instructions](https://yarnpkg.com/en/docs/install#mac-stable)
-- [X] Vue Cli 3 - [instructions](https://cli.vuejs.org/guide/installation.html)
-- [X] Python 3
-- [X] Pipenv (optional)
-- [X] Heroku Cli (if deploying to Heroku)
+- [x] Yarn - [instructions](https://yarnpkg.com/en/docs/install#mac-stable)
+- [x] Vue Cli 3 - [instructions](https://cli.vuejs.org/guide/installation.html)
+- [x] Python 3
+- [x] Pipenv (optional)
+- [x] Heroku Cli (if deploying to Heroku)
 
 ##### Template and Dependencies
 
-* Clone this repository:
+- Clone this repository:
 
-	```
-	$ git clone https://github.com/gtalarico/flask-vuejs-template.git
-	```
+```
+$ git clone https://github.com/zRnatoNeto/skore-buddy-python.git
+```
 
-* Setup virtual environment, install dependencies, and activate it:
+- Setup virtual environment, install dependencies, and activate it:
 
-	```
-	$ pipenv install --dev
-	$ pipenv shell
-	```
+```
+$ pipenv install --dev
+$ pipenv shell
+```
 
-* Install JS dependencies
+- Install JS dependencies
 
-	```
-	$ yarn install
-	```
-
+```
+$ yarn install
+```
 
 ## Development Server
 
@@ -139,7 +85,6 @@ $ yarn build
 $ python run.py
 ```
 
-
 ## Production Server
 
 This template is configured to work with Heroku + Gunicorn and it's pre-configured
@@ -159,17 +104,17 @@ The python buildpack will detect the `Pipfile` and install all the python depend
 
 Here are the commands we need to run to get things setup on the Heroku side:
 
-	```
-	$ heroku apps:create flask-vuejs-template-demo
-	$ heroku git:remote --app flask-vuejs-template-demo
-	$ heroku buildpacks:add --index 1 heroku/nodejs
-	$ heroku buildpacks:add --index 2 heroku/python
-	$ heroku config:set FLASK_ENV=production
-	$ heroku config:set FLASK_SECRET=SuperSecretKey
+    ```
+    $ heroku apps:create skore-buddy-python
+    $ heroku git:remote --app skore-buddy-python
+    $ heroku buildpacks:add --index 1 heroku/nodejs
+    $ heroku buildpacks:add --index 2 heroku/python
+    $ heroku config:set FLASK_ENV=production
+    $ heroku config:set FLASK_SECRET=SuperSecretKey
 
-	$ git push heroku
-	```
+    $ git push heroku
+    ```
 
 ### Heroku deployment - One Click Deploy
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/gtalarico/flask-vuejs-template)
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/zRnatoNeto/skore-buddy-python)
